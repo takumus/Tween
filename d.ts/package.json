@@ -1,0 +1,6 @@
+
+{
+    "version": "1.0.0",
+    "name": "@types/tween",
+    "types:": "./index.d.ts"
+}
