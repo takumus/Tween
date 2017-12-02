@@ -1,7 +1,11 @@
 import CubicBezier from 'cubic-bezier';
 export default class Tween {
+    private updateCallback;
+    private completeCallback;
     constructor(props: Props);
-    public: any;
+    update(callback: (props: Object) => void): void;
+    complete(callback: () => void): void;
+    start(): void;
 }
 export declare type Props = {
     duration: number;

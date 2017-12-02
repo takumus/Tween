@@ -12,8 +12,10 @@ export default class Tween {
         this.completeCallback = callback;
     }
     public start() {
-
     }
+}
+export function tick() {
+    
 }
 export type Props = {
     duration: number,
