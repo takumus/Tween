@@ -26,7 +26,8 @@ var Tween = /** @class */ (function () {
         TweenManager.add(this);
     };
     Tween.prototype.__update = function (time) {
-        var progress = this.easing((time - this.startTime) / this.duration);
+        var progress = (time - this.startTime) / this.duration;
+        var easing = this.easing(progress);
         if (progress >= 1) {
             progress = 1;
             this.updateCallback(this.to);
@@ -34,7 +35,7 @@ var Tween = /** @class */ (function () {
         }
         var props = {};
         for (var key in this.from) {
-            props[key] = (1 - progress) * this.from[key] + this.to[key] * progress;
+            props[key] = (1 - easing) * this.from[key] + this.to[key] * easing;
         }
         this.updateCallback(props);
         return false;

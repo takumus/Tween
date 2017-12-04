@@ -29,7 +29,8 @@ class Tween <P extends Object>{
         TweenManager.add(this);
     }
     public __update(time: number) {
-        let progress = this.easing((time - this.startTime) / this.duration);
+        let progress = (time - this.startTime) / this.duration;
+        const easing = this.easing(progress);
         if (progress >= 1) {
             progress = 1;
             this.updateCallback(this.to);
@@ -37,7 +38,7 @@ class Tween <P extends Object>{
         }
         const props: any = {};
         for (const key in this.from) {
-            props[key] = (1 - progress) * this.from[key] + this.to[key] * progress;
+            props[key] = (1 - easing) * this.from[key] + this.to[key] * easing;
         }
         this.updateCallback(props as P);
         return false;
