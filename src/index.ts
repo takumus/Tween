@@ -1,18 +1,26 @@
 import CubicBezier from 'cubic-bezier';
-class Tween {
+class Tween <P extends Object>{
     private static _id: number = 0;
-    private updateCallback: Tween.UpdateFunction;
+    private updateCallback: (props: P) => void;
     private completeCallback: () => void;
     private startTime: number;
     public id: number;
-    constructor(private props: Tween.Props) {
+    private duration: number;
+    private easing: Tween.EasingFunction;
+    private from: P;
+    private to: P;
+    constructor(
+        duration: number,
+        from: P,
+        to: P,
+        easing: Tween.EasingFunction = Tween.easings.linear
+    ) {
         this.startTime = -1;
         this.id = Tween._id++;
         this.update(() => {});
         this.complete(() => {});
-        props.easing = props.easing ? props.easing : Tween.easings.linear;
     }
-    public update(callback: Tween.UpdateFunction) {
+    public update(callback: (props: P) => void) {
         this.updateCallback = callback;
         return this;
     }
@@ -25,54 +33,48 @@ class Tween {
         TweenManager.add(this);
     }
     public __update(time: number) {
-        let progress = this.props.easing((time - this.startTime) / this.props.duration);
+        let progress = this.easing((time - this.startTime) / this.duration);
         if (progress >= 1) {
             progress = 1;
-            this.updateCallback(this.props.to);
-            this.completeCallback();
+            this.updateCallback(this.to);
             return true;
         }
-        const props = {};
-        for (const key in this.props.from) {
-            props[key] = (1 - progress) * this.props.from[key] + this.props.to[key] * progress;
+        const props: any = {};
+        for (const key in this.from) {
+            props[key] = (1 - progress) * this.from[key] + this.to[key] * progress;
         }
-        this.updateCallback(props);
+        this.updateCallback(props as P);
         return false;
+    }
+    public __complete() {
+        this.completeCallback();
     }
 }
 const TweenManager = new class {
-    private tweens: {[id: number]: Tween;};
+    private tweens: {[id: number]: Tween<Object>;};
     constructor() {
         this.tweens = {};
     }
     public tick() {
         const now = Date.now();
         for (const id in this.tweens) {
-            const completed = this.tweens[id].__update(now);
-            if (completed) delete this.tweens[id];
+            const tween = this.tweens[id];
+            const completed = tween.__update(now);
+            if (completed) {
+                delete this.tweens[id];
+                tween.__complete();
+            }
         }
     }
-    public add(tween: Tween) {
+    public add(tween: Tween<Object>) {
         this.tweens[tween.id] = tween;
     }
 }
 namespace Tween {
-    export function hello () {
-
-    }
     export function tick() {
         TweenManager.tick();
     }
-    // types
-    export type Props = {
-        duration: number,
-        easing: EasingFunction,
-        from: Object
-        to: Object
-    };
     export type EasingFunction = (n: number) => number;
-    export type UpdateFunction = (props: Object) => void;
-    
     export const cb = CubicBezier;
     // samples
     export const easings = {

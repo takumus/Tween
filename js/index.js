@@ -27,7 +27,6 @@ var Tween = /** @class */ (function () {
         if (progress >= 1) {
             progress = 1;
             this.updateCallback(this.props.to);
-            this.completeCallback();
             return true;
         }
         var props = {};
@@ -36,6 +35,9 @@ var Tween = /** @class */ (function () {
         }
         this.updateCallback(props);
         return false;
+    };
+    Tween.prototype.__complete = function () {
+        this.completeCallback();
     };
     Tween._id = 0;
     return Tween;
@@ -47,9 +49,12 @@ var TweenManager = new /** @class */ (function () {
     class_1.prototype.tick = function () {
         var now = Date.now();
         for (var id in this.tweens) {
-            var completed = this.tweens[id].__update(now);
-            if (completed)
+            var tween = this.tweens[id];
+            var completed = tween.__update(now);
+            if (completed) {
                 delete this.tweens[id];
+                tween.__complete();
+            }
         }
     };
     class_1.prototype.add = function (tween) {
@@ -58,9 +63,6 @@ var TweenManager = new /** @class */ (function () {
     return class_1;
 }());
 (function (Tween) {
-    function hello() {
-    }
-    Tween.hello = hello;
     function tick() {
         TweenManager.tick();
     }

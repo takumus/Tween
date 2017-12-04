@@ -11,9 +11,9 @@ declare class Tween {
     complete(callback: () => void): this;
     start(): void;
     __update(time: number): boolean;
+    __complete(): void;
 }
 declare namespace Tween {
-    function hello(): void;
     function tick(): void;
     type Props = {
         duration: number;

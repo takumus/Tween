@@ -19,12 +19,12 @@ function update() {
 update();
 
 // 簡単サンプル
-new Tween({
-    duration: 1000, // 1秒間
-    easing: Tween.easings.in.quad, //イージング関数
-    from: {x: 200, y: 300},
-    to: {x: 400, y: 100}
-})
+new Tween(
+    1000, // 1秒間
+    {x: 200, y: 300}, //ここから
+    {x: 400, y: 100}, //ここまで
+    Tween.easings.in.quad //イージング関数
+)
 .update((props) => {
     console.log(props.x, props.y)
 })
@@ -34,12 +34,12 @@ new Tween({
 .start();
 
 // 自前の３次ベジェを使う場合
-new Tween({
-    duration: 1000, // 1秒間
-    easing: Tween.cb(1, 0, 0, 1), //イージング関数
-    from: {x: 200, y: 300},
-    to: {x: 400, y: 100}
-})
+new Tween(
+    1000, // 1秒間
+    {x: 200, y: 300}, //ここから
+    {x: 400, y: 100}, //ここまで
+    Tween.cb(1, 0, 0, 1) //イージング関数(Expo)
+)
 .update((props) => {
     console.log(props.x, props.y)
 })
