@@ -2,13 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var cubic_bezier_1 = require("cubic-bezier");
 var Tween = /** @class */ (function () {
-    function Tween(props) {
-        this.props = props;
+    function Tween(duration, from, to, easing) {
+        if (easing === void 0) { easing = Tween.easings.linear; }
         this.startTime = -1;
         this.id = Tween._id++;
         this.update(function () { });
         this.complete(function () { });
-        props.easing = props.easing ? props.easing : Tween.easings.linear;
     }
     Tween.prototype.update = function (callback) {
         this.updateCallback = callback;
@@ -23,15 +22,15 @@ var Tween = /** @class */ (function () {
         TweenManager.add(this);
     };
     Tween.prototype.__update = function (time) {
-        var progress = this.props.easing((time - this.startTime) / this.props.duration);
+        var progress = this.easing((time - this.startTime) / this.duration);
         if (progress >= 1) {
             progress = 1;
-            this.updateCallback(this.props.to);
+            this.updateCallback(this.to);
             return true;
         }
         var props = {};
-        for (var key in this.props.from) {
-            props[key] = (1 - progress) * this.props.from[key] + this.props.to[key] * progress;
+        for (var key in this.from) {
+            props[key] = (1 - progress) * this.from[key] + this.to[key] * progress;
         }
         this.updateCallback(props);
         return false;
