@@ -8,7 +8,7 @@ var Tween = /** @class */ (function () {
         this.id = Tween._id++;
         this.update(function () { });
         this.complete(function () { });
-        props.easing = props.easing ? props.easing : module.exports.easings.linear; = exports.easings.linear;
+        props.easing = props.easing ? props.easing : Tween.easings.linear;
     }
     Tween.prototype.update = function (callback) {
         this.updateCallback = callback;
@@ -40,7 +40,6 @@ var Tween = /** @class */ (function () {
     Tween._id = 0;
     return Tween;
 }());
-module.exports = Tween; module.exports.default = Tween; exports.default = Tween;
 var TweenManager = new /** @class */ (function () {
     function class_1() {
         this.tweens = {};
@@ -58,42 +57,48 @@ var TweenManager = new /** @class */ (function () {
     };
     return class_1;
 }());
-function tick() {
-    TweenManager.tick();
-}
-module.exports.tick = exports.tick = tick;
-module.exports.cb = exports.cb = cubic_bezier_1.default;
-// samples
-module.exports.easings = exports.easings = {
-    linear: function (n) { return n; },
-    in: {
-        sine: module.exports.cb(0.47, = exports.cb(0.47, 0, 0.745, 0.715),
-        cubic: module.exports.cb(0.55, = exports.cb(0.55, 0.055, 0.675, 0.19),
-        quint: module.exports.cb(0.755, = exports.cb(0.755, 0.05, 0.855, 0.06),
-        circ: module.exports.cb(0.6, = exports.cb(0.6, 0.04, 0.98, 0.335),
-        quad: module.exports.cb(0.55, = exports.cb(0.55, 0.085, 0.68, 0.53),
-        quart: module.exports.cb(0.895, = exports.cb(0.895, 0.03, 0.685, 0.22),
-        expo: module.exports.cb(0.95, = exports.cb(0.95, 0.05, 0.795, 0.035),
-        back: module.exports.cb(0.6, = exports.cb(0.6, -0.28, 0.735, 0.045)
-    },
-    out: {
-        sine: module.exports.cb(0.39, = exports.cb(0.39, 0.575, 0.565, 1),
-        cubic: module.exports.cb(0.215, = exports.cb(0.215, 0.61, 0.355, 1),
-        quint: module.exports.cb(0.23, = exports.cb(0.23, 1, 0.32, 1),
-        circ: module.exports.cb(0.075, = exports.cb(0.075, 0.82, 0.165, 1),
-        quad: module.exports.cb(0.25, = exports.cb(0.25, 0.46, 0.45, 0.94),
-        quart: module.exports.cb(0.165, = exports.cb(0.165, 0.84, 0.44, 1),
-        expo: module.exports.cb(0.19, = exports.cb(0.19, 1, 0.22, 1),
-        back: module.exports.cb(0.175, = exports.cb(0.175, 0.885, 0.32, 1.275)
-    },
-    inOut: {
-        sine: module.exports.cb(0.445, = exports.cb(0.445, 0.05, 0.55, 0.95),
-        cubic: module.exports.cb(0.645, = exports.cb(0.645, 0.045, 0.355, 1),
-        quint: module.exports.cb(0.86, = exports.cb(0.86, 0, 0.07, 1),
-        circ: module.exports.cb(0.785, = exports.cb(0.785, 0.135, 0.15, 0.86),
-        quad: module.exports.cb(0.455, = exports.cb(0.455, 0.03, 0.515, 0.955),
-        quart: module.exports.cb(0.77, = exports.cb(0.77, 0, 0.175, 1),
-        expo: module.exports.cb(1, = exports.cb(1, 0, 0, 1),
-        back: module.exports.cb(0.68, = exports.cb(0.68, -0.55, 0.265, 1.55)
-    },
-};
+(function (Tween) {
+    function hello() {
+    }
+    Tween.hello = hello;
+    function tick() {
+        TweenManager.tick();
+    }
+    Tween.tick = tick;
+    Tween.cb = cubic_bezier_1.default;
+    // samples
+    Tween.easings = {
+        linear: function (n) { return n; },
+        in: {
+            sine: Tween.cb(0.47, 0, 0.745, 0.715),
+            cubic: Tween.cb(0.55, 0.055, 0.675, 0.19),
+            quint: Tween.cb(0.755, 0.05, 0.855, 0.06),
+            circ: Tween.cb(0.6, 0.04, 0.98, 0.335),
+            quad: Tween.cb(0.55, 0.085, 0.68, 0.53),
+            quart: Tween.cb(0.895, 0.03, 0.685, 0.22),
+            expo: Tween.cb(0.95, 0.05, 0.795, 0.035),
+            back: Tween.cb(0.6, -0.28, 0.735, 0.045)
+        },
+        out: {
+            sine: Tween.cb(0.39, 0.575, 0.565, 1),
+            cubic: Tween.cb(0.215, 0.61, 0.355, 1),
+            quint: Tween.cb(0.23, 1, 0.32, 1),
+            circ: Tween.cb(0.075, 0.82, 0.165, 1),
+            quad: Tween.cb(0.25, 0.46, 0.45, 0.94),
+            quart: Tween.cb(0.165, 0.84, 0.44, 1),
+            expo: Tween.cb(0.19, 1, 0.22, 1),
+            back: Tween.cb(0.175, 0.885, 0.32, 1.275)
+        },
+        inOut: {
+            sine: Tween.cb(0.445, 0.05, 0.55, 0.95),
+            cubic: Tween.cb(0.645, 0.045, 0.355, 1),
+            quint: Tween.cb(0.86, 0, 0.07, 1),
+            circ: Tween.cb(0.785, 0.135, 0.15, 0.86),
+            quad: Tween.cb(0.455, 0.03, 0.515, 0.955),
+            quart: Tween.cb(0.77, 0, 0.175, 1),
+            expo: Tween.cb(1, 0, 0, 1),
+            back: Tween.cb(0.68, -0.55, 0.265, 1.55)
+        },
+    };
+})(Tween || (Tween = {}));
+module.exports = Tween; module.exports.default = Tween; exports.default = Tween;

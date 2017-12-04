@@ -1,10 +1,13 @@
 {
   "name": "tween",
-  "version": "1.0.1",
+  "version": "1.0.13",
   "description": "",
   "main": "./js/index.js",
   "scripts": {
-    "push": "npm publish --registry http://npm.takumus.com",
+    "push": "npm run updateVersion && npm run pushjs && npm run pushdts",
+    "updateVersion": "node updateVersion.js",
+    "pushjs": "npm publish --registry http://npm.takumus.com",
+    "pushdts": "cd d.ts && npm publish --registry http://npm.takumus.com",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
