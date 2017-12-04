@@ -1,14 +1,14 @@
 import CubicBezier from 'cubic-bezier';
 declare class Tween<P extends Object> {
+    private duration;
+    private from;
+    private to;
+    private easing;
     private static _id;
     private updateCallback;
     private completeCallback;
     private startTime;
     id: number;
-    private duration;
-    private easing;
-    private from;
-    private to;
     constructor(duration: number, from: P, to: P, easing?: Tween.EasingFunction);
     update(callback: (props: P) => void): this;
     complete(callback: () => void): this;

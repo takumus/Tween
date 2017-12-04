@@ -4,6 +4,10 @@ var cubic_bezier_1 = require("cubic-bezier");
 var Tween = /** @class */ (function () {
     function Tween(duration, from, to, easing) {
         if (easing === void 0) { easing = Tween.easings.linear; }
+        this.duration = duration;
+        this.from = from;
+        this.to = to;
+        this.easing = easing;
         this.startTime = -1;
         this.id = Tween._id++;
         this.update(function () { });

@@ -5,15 +5,11 @@ class Tween <P extends Object>{
     private completeCallback: () => void;
     private startTime: number;
     public id: number;
-    private duration: number;
-    private easing: Tween.EasingFunction;
-    private from: P;
-    private to: P;
     constructor(
-        duration: number,
-        from: P,
-        to: P,
-        easing: Tween.EasingFunction = Tween.easings.linear
+        private duration: number,
+        private from: P,
+        private to: P,
+        private easing: Tween.EasingFunction = Tween.easings.linear
     ) {
         this.startTime = -1;
         this.id = Tween._id++;
