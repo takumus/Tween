@@ -20,8 +20,8 @@ update();
 
 // 簡単サンプル
 new Tween({
-    1000, // 1秒間
-    Tween.easings.in.quad, //イージング関数
+    duration: 1000, // 1秒間
+    easing: Tween.easings.in.quad, //イージング関数
     from: {x: 200, y: 300},
     to: {x: 400, y: 100}
 })
@@ -35,8 +35,8 @@ new Tween({
 
 // 自前の３次ベジェを使う場合
 new Tween({
-    1000, // 1秒間
-    Tween.cb(1, 0, 0, 1), //イージング関数
+    duration: 1000, // 1秒間
+    easing: Tween.cb(1, 0, 0, 1), //イージング関数
     from: {x: 200, y: 300},
     to: {x: 400, y: 100}
 })
