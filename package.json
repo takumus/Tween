@@ -1,6 +1,6 @@
 {
   "name": "tween",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "",
   "main": "./js/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-add-module-exports": "^1.0.4",
+    "gulp-add-module-exports": "^1.0.8",
     "gulp-typescript": "^3.2.3",
     "merge2": "^1.2.0",
     "through2": "^2.0.3",
