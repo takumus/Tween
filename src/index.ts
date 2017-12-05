@@ -3,6 +3,7 @@ class Tween <P extends Object>{
     private static _id: number = 0;
     private updateCallback: (props: P) => void;
     private completeCallback: () => void;
+    private promiseComplete: () => void;
     private startTime: number;
     public id: number;
     constructor(
@@ -24,9 +25,13 @@ class Tween <P extends Object>{
         this.completeCallback = callback;
         return this;
     }
-    public start() {
+    public async start() {
         this.startTime = Date.now();
         TweenManager.add(this);
+        if (typeof Promise === 'undefined') return null;
+        return new Promise<void>((resolve: () => void, reject: () => void) => {
+            this.promiseComplete = () => resolve();
+        });
     }
     public __update(time: number) {
         let progress = (time - this.startTime) / this.duration;
@@ -45,6 +50,7 @@ class Tween <P extends Object>{
     }
     public __complete() {
         this.completeCallback();
+        this.promiseComplete();
     }
 }
 const TweenManager = new class {

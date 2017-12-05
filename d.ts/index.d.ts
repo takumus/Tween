@@ -7,12 +7,13 @@ declare class Tween<P extends Object> {
     private static _id;
     private updateCallback;
     private completeCallback;
+    private promiseComplete;
     private startTime;
     id: number;
     constructor(duration: number, from: P, to: P, easing?: Tween.EasingFunction);
     update(callback: (props: P) => void): this;
     complete(callback: () => void): this;
-    start(): void;
+    start(): Promise<void>;
     __update(time: number): boolean;
     __complete(): void;
 }
